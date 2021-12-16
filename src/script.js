@@ -4,7 +4,7 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import * as dat from 'lil-gui';
 
 // Debug
-// const gui = new dat.GUI();
+const gui = new dat.GUI();
 
 /**
  * Base
@@ -30,21 +30,19 @@ loadingManager.onLoad = () => {
 
 const textureLoader = new THREE.TextureLoader(loadingManager);
 const cubeTextureLoader = new THREE.CubeTextureLoader(loadingManager);
-// I can use the relative /static/ path here, but not in ESM... curious
-// const colorTexture = textureLoader.load('/textures/checkerboard-1024x1024.png');
-// const colorTexture = textureLoader.load('/textures/checkerboard-8x8.png');
-// const colorTexture = textureLoader.load('/textures/minecraft.png');
-const colorTexture = textureLoader.load('/textures/door/color.jpg');
-// const colorTexture = textureLoader.load(doorColor);
-const alphaTexture = textureLoader.load('/textures/door/alpha.jpg');
-const heightTexture = textureLoader.load('/textures/door/height.jpg');
-const normalTexture = textureLoader.load('/textures/door/normal.jpg');
-const ambientOcclusionTexture = textureLoader.load('/textures/door/ambientOcclusion.jpg');
-const metalnessTexture = textureLoader.load('/textures/door/metalness.jpg');
-const roughnessTexture = textureLoader.load('/textures/door/roughness.jpg');
 
-const gradientTexture = textureLoader.load('/textures/gradients/3.jpg');
-const matcapTexture = textureLoader.load('/textures/matcaps/1.png');
+const sunTexture = textureLoader.load('/textures/planets/sun.jpg');
+const mercuryTexture = textureLoader.load('/textures/planets/mercury.jpg');
+const venusTexture = textureLoader.load('/textures/planets/venus.jpg');
+const earthTexture = textureLoader.load('/textures/planets/earth.jpg');
+const marsTexture = textureLoader.load('/textures/planets/mars.jpg');
+const jupiterTexture = textureLoader.load('/textures/planets/jupiter.jpg');
+const saturnTexture = textureLoader.load('/textures/planets/saturn.jpg');
+const uranusTexture = textureLoader.load('/textures/planets/uranus.jpg');
+const neptuneTexture = textureLoader.load('/textures/planets/neptune.jpg');
+
+// const gradientTexture = textureLoader.load('/textures/gradients/3.jpg');
+// const matcapTexture = textureLoader.load('/textures/matcaps/1.png');
 
 // The order of CubeTextures are important. Look at the docs
 const environmentMapTexture = cubeTextureLoader.load([
@@ -56,10 +54,10 @@ const environmentMapTexture = cubeTextureLoader.load([
     '/textures/environmentMaps/space/nz.png'
 ]);
 
-gradientTexture.minFilter = THREE.NearestFilter;
-gradientTexture.magFilter = THREE.NearestFilter;
+// gradientTexture.minFilter = THREE.NearestFilter;
+// gradientTexture.magFilter = THREE.NearestFilter;
 // Remember we can deactivate mipmapping since we are using NearestFilter, for better performance
-gradientTexture.generateMipmaps = false;
+// gradientTexture.generateMipmaps = false;
 
 // Scene
 const scene = new THREE.Scene()
@@ -135,7 +133,8 @@ const scene = new THREE.Scene()
 // const material = new THREE.PointsMaterial();
 
 // Last part of the module, we want to add an environment map
-const material = new THREE.MeshBasicMaterial({ color: 'cyan' });
+// const material = new THREE.MeshBasicMaterial({ color: 'cyan' });
+// const material = new THREE.MeshBasicMaterial();
 // material.metalness = 0.7;
 // material.roughness = 0.2;
 // material.envMap = environmentMapTexture;
@@ -147,59 +146,68 @@ const material = new THREE.MeshBasicMaterial({ color: 'cyan' });
 // gui.add(material, 'aoMapIntensity').min(1).max(10).step(0.0001);
 // gui.add(material, 'displacementScale').min(0).max(1).step(0.0001);
 
-const sphere1 = new THREE.Mesh(
+const sun = new THREE.Mesh(
     new THREE.SphereGeometry(0.5, 32, 32),
-    material
+    new THREE.MeshBasicMaterial({ map: sunTexture })
 )
 
-const sphere2 = new THREE.Mesh(
+const mercury = new THREE.Mesh(
     new THREE.SphereGeometry(0.5, 32, 32),
-    material
+    new THREE.MeshBasicMaterial({ map: mercuryTexture })
 )
 
-const sphere3 = new THREE.Mesh(
+const venus = new THREE.Mesh(
     new THREE.SphereGeometry(0.5, 32, 32),
-    material
+    new THREE.MeshBasicMaterial({ map: venusTexture })
 )
 
-const sphere4 = new THREE.Mesh(
+const earth = new THREE.Mesh(
     new THREE.SphereGeometry(0.5, 32, 32),
-    material
+    new THREE.MeshBasicMaterial({ map: earthTexture })
 )
 
-const sphere5 = new THREE.Mesh(
+const mars = new THREE.Mesh(
     new THREE.SphereGeometry(0.5, 32, 32),
-    material
+    new THREE.MeshBasicMaterial({ map: marsTexture })
 )
 
-const sphere6 = new THREE.Mesh(
+const jupiter = new THREE.Mesh(
     new THREE.SphereGeometry(0.5, 32, 32),
-    material
+    new THREE.MeshBasicMaterial({ map: jupiterTexture })
 )
 
-const sphere7 = new THREE.Mesh(
+const saturn = new THREE.Mesh(
     new THREE.SphereGeometry(0.5, 64, 64),
-    material
+    new THREE.MeshBasicMaterial({ map: saturnTexture })
 )
 
-const sphere8 = new THREE.Mesh(
+const uranus = new THREE.Mesh(
     new THREE.SphereGeometry(0.5, 64, 64),
-    material
+    new THREE.MeshBasicMaterial({ map: uranusTexture })
 )
 
-sphere1.position.x = -4.5;
-sphere2.position.x = -3;
-sphere3.position.x = -1.5;
-sphere4.position.x = 0;
-sphere5.position.x = 1.5;
-sphere6.position.x = 3;
-sphere7.position.x = 4.5;
-sphere8.position.x = 6;
+const neptune = new THREE.Mesh(
+    new THREE.SphereGeometry(0.5, 64, 64),
+    new THREE.MeshBasicMaterial({ map: neptuneTexture })
+)
+
+sun.position.x = -4.5;
+mercury.position.x = -3;
+venus.position.x = -1.5;
+earth.position.x = 0;
+mars.position.x = 1.5;
+jupiter.position.x = 3;
+saturn.position.x = 4.5;
+uranus.position.x = 6;
+neptune.position.x = 7.5;
 
 
+scene.add(sun, mercury, venus, earth, mars, jupiter, saturn, uranus, neptune);
 
-scene.add(sphere1, sphere2, sphere3, sphere4, sphere5, sphere6, sphere7, sphere8);
 
+// Axes helper
+const axesHelper = new THREE.AxesHelper();
+scene.add(axesHelper);
 // Lights
 
 // const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
