@@ -147,37 +147,37 @@ const scene = new THREE.Scene()
 // gui.add(material, 'displacementScale').min(0).max(1).step(0.0001);
 
 const sun = new THREE.Mesh(
-    new THREE.SphereGeometry(0.5, 32, 32),
+    new THREE.SphereGeometry(1, 64, 64),
     new THREE.MeshBasicMaterial({ map: sunTexture })
 )
 
 const mercury = new THREE.Mesh(
-    new THREE.SphereGeometry(0.5, 32, 32),
+    new THREE.SphereGeometry(0.2, 64, 64),
     new THREE.MeshBasicMaterial({ map: mercuryTexture })
 )
 
 const venus = new THREE.Mesh(
-    new THREE.SphereGeometry(0.5, 32, 32),
+    new THREE.SphereGeometry(0.4, 64, 64),
     new THREE.MeshBasicMaterial({ map: venusTexture })
 )
 
 const earth = new THREE.Mesh(
-    new THREE.SphereGeometry(0.5, 32, 32),
+    new THREE.SphereGeometry(0.5, 64, 64),
     new THREE.MeshBasicMaterial({ map: earthTexture })
 )
 
 const mars = new THREE.Mesh(
-    new THREE.SphereGeometry(0.5, 32, 32),
+    new THREE.SphereGeometry(0.4, 64, 64),
     new THREE.MeshBasicMaterial({ map: marsTexture })
 )
 
 const jupiter = new THREE.Mesh(
-    new THREE.SphereGeometry(0.5, 32, 32),
+    new THREE.SphereGeometry(0.8, 64, 64),
     new THREE.MeshBasicMaterial({ map: jupiterTexture })
 )
 
 const saturn = new THREE.Mesh(
-    new THREE.SphereGeometry(0.5, 64, 64),
+    new THREE.SphereGeometry(0.65, 64, 64),
     new THREE.MeshBasicMaterial({ map: saturnTexture })
 )
 
@@ -187,7 +187,7 @@ const uranus = new THREE.Mesh(
 )
 
 const neptune = new THREE.Mesh(
-    new THREE.SphereGeometry(0.5, 64, 64),
+    new THREE.SphereGeometry(0.4, 64, 64),
     new THREE.MeshBasicMaterial({ map: neptuneTexture })
 )
 
@@ -278,9 +278,32 @@ const tick = () =>
     const elapsedTime = clock.getElapsedTime()
 
     // Update objects
-    // sphere.rotation.y = 0.1 * elapsedTime;
+    sun.rotation.y = 0.0 * elapsedTime;
+    sun.rotation.x = 0.07 * elapsedTime;
 
-    // sphere.rotation.x = 0.15 * elapsedTime;
+    mercury.rotation.y = 0.05 * elapsedTime;
+    mercury.rotation.x = 0.1 * elapsedTime;
+
+    venus.rotation.y = 0.03 * elapsedTime;
+    venus.rotation.x = 0.09 * elapsedTime;
+
+    earth.rotation.y = 0.1 * elapsedTime;
+    earth.rotation.x = 0.15 * elapsedTime;
+
+    mars.rotation.y = 0.04 * elapsedTime;
+    mars.rotation.x = 0.08 * elapsedTime;
+
+    jupiter.rotation.y = 0.03 * elapsedTime;
+    jupiter.rotation.x = 0.07 * elapsedTime;
+
+    saturn.rotation.y = 0.04 * elapsedTime;
+    saturn.rotation.x = 0.08 * elapsedTime;
+
+    uranus.rotation.y = 0.05 * elapsedTime;
+    uranus.rotation.x = 0.09 * elapsedTime;
+
+    neptune.rotation.y = 0.1 * elapsedTime;
+    neptune.rotation.x = 0.1 * elapsedTime;
 
     // Update controls
     controls.update()
