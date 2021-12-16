@@ -273,37 +273,43 @@ renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
  */
 const clock = new THREE.Clock()
 
+const animationObject = {
+    planetRotationSpeed: 1,
+}
+
+gui.add(animationObject, 'planetRotationSpeed').min(0).max(10).step(0.01);
+
 const tick = () =>
 {
     const elapsedTime = clock.getElapsedTime()
 
     // Update objects
-    sun.rotation.y = 0.0 * elapsedTime;
-    sun.rotation.x = 0.07 * elapsedTime;
+    sun.rotation.y = (0.0 * elapsedTime) * animationObject.planetRotationSpeed;
+    sun.rotation.x = (0.07 * elapsedTime) * animationObject.planetRotationSpeed;
 
-    mercury.rotation.y = 0.05 * elapsedTime;
-    mercury.rotation.x = 0.1 * elapsedTime;
+    mercury.rotation.y = (0.05 * elapsedTime) * animationObject.planetRotationSpeed;
+    mercury.rotation.x = (0.1 * elapsedTime) * animationObject.planetRotationSpeed;
 
-    venus.rotation.y = 0.03 * elapsedTime;
-    venus.rotation.x = 0.09 * elapsedTime;
+    venus.rotation.y = (0.03 * elapsedTime) * animationObject.planetRotationSpeed;
+    venus.rotation.x = (0.09 * elapsedTime) * animationObject.planetRotationSpeed;
 
-    earth.rotation.y = 0.1 * elapsedTime;
-    earth.rotation.x = 0.15 * elapsedTime;
+    earth.rotation.y = (0.1 * elapsedTime) * animationObject.planetRotationSpeed;
+    earth.rotation.x = (0.15 * elapsedTime) * animationObject.planetRotationSpeed;
 
-    mars.rotation.y = 0.04 * elapsedTime;
-    mars.rotation.x = 0.08 * elapsedTime;
+    mars.rotation.y = (0.04 * elapsedTime) * animationObject.planetRotationSpeed;
+    mars.rotation.x = (0.08 * elapsedTime) * animationObject.planetRotationSpeed;
 
-    jupiter.rotation.y = 0.03 * elapsedTime;
-    jupiter.rotation.x = 0.07 * elapsedTime;
+    jupiter.rotation.y = (0.03 * elapsedTime) * animationObject.planetRotationSpeed;
+    jupiter.rotation.x = (0.07 * elapsedTime) * animationObject.planetRotationSpeed;
 
-    saturn.rotation.y = 0.04 * elapsedTime;
-    saturn.rotation.x = 0.08 * elapsedTime;
+    saturn.rotation.y = (0.04 * elapsedTime) * animationObject.planetRotationSpeed;
+    saturn.rotation.x = (0.08 * elapsedTime) * animationObject.planetRotationSpeed;
 
-    uranus.rotation.y = 0.05 * elapsedTime;
-    uranus.rotation.x = 0.09 * elapsedTime;
+    uranus.rotation.y = (0.05 * elapsedTime) * animationObject.planetRotationSpeed;
+    uranus.rotation.x = (0.09 * elapsedTime) * animationObject.planetRotationSpeed;
 
-    neptune.rotation.y = 0.1 * elapsedTime;
-    neptune.rotation.x = 0.1 * elapsedTime;
+    neptune.rotation.y = (0.1 * elapsedTime) * animationObject.planetRotationSpeed;
+    neptune.rotation.x = (0.1 * elapsedTime) * animationObject.planetRotationSpeed;
 
     // Update controls
     controls.update()
