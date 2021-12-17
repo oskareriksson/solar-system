@@ -119,8 +119,8 @@ scene.add(sun, mercury, venus, earth, mars, jupiter, saturn, uranus, neptune);
 
 
 // Axes helper
-const axesHelper = new THREE.AxesHelper(15);
-scene.add(axesHelper);
+// const axesHelper = new THREE.AxesHelper(15);
+// scene.add(axesHelper);
 
 /**
  * Sizes
@@ -150,8 +150,8 @@ window.addEventListener('resize', () =>
  */
 // Base camera
 const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, 0.1, 100)
-camera.position.x = -7
-camera.position.y = 7
+camera.position.x = -4
+camera.position.y = 4
 camera.position.z = 7
 scene.add(camera)
 
