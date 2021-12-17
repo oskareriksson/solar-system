@@ -191,22 +191,22 @@ const neptune = new THREE.Mesh(
     new THREE.MeshBasicMaterial({ map: neptuneTexture })
 )
 
-sun.position.x = -4.5;
-mercury.position.x = -3;
-venus.position.x = -1.5;
-earth.position.x = 0;
-mars.position.x = 1.5;
-jupiter.position.x = 3;
-saturn.position.x = 4.5;
-uranus.position.x = 6;
-neptune.position.x = 7.5;
+sun.position.x = 0;
+mercury.position.x = 1.5;
+venus.position.x = 3;
+earth.position.x = 4.5;
+mars.position.x = 6;
+jupiter.position.x = 7.5;
+saturn.position.x = 9;
+uranus.position.x = 10.5;
+neptune.position.x = 12;
 
 
 scene.add(sun, mercury, venus, earth, mars, jupiter, saturn, uranus, neptune);
 
 
 // Axes helper
-const axesHelper = new THREE.AxesHelper();
+const axesHelper = new THREE.AxesHelper(5);
 scene.add(axesHelper);
 // Lights
 
@@ -284,6 +284,7 @@ const tick = () =>
     const elapsedTime = clock.getElapsedTime()
 
     // Update objects
+    // Planet rotations
     sun.rotation.y = (0.0 * elapsedTime) * animationObject.planetRotationSpeed;
     sun.rotation.x = (0.07 * elapsedTime) * animationObject.planetRotationSpeed;
 
@@ -310,6 +311,31 @@ const tick = () =>
 
     neptune.rotation.y = (0.1 * elapsedTime) * animationObject.planetRotationSpeed;
     neptune.rotation.x = (0.1 * elapsedTime) * animationObject.planetRotationSpeed;
+
+    // Orbit rotations
+    mercury.position.z = (Math.sin(elapsedTime) * 1.5);
+    mercury.position.x = (Math.cos(elapsedTime) * 1.5);
+
+    venus.position.z = (Math.sin(elapsedTime) * 3);
+    venus.position.x = (Math.cos(elapsedTime) * 3);
+
+    earth.position.z = (Math.sin(elapsedTime) * 4.5);
+    earth.position.x = (Math.cos(elapsedTime) * 4.5);
+
+    mars.position.z = (Math.sin(elapsedTime) * 6);
+    mars.position.x = (Math.cos(elapsedTime) * 6);
+
+    jupiter.position.z = (Math.sin(elapsedTime) * 7.5);
+    jupiter.position.x = (Math.cos(elapsedTime) * 7.5);
+
+    saturn.position.z = (Math.sin(elapsedTime) * 9);
+    saturn.position.x = (Math.cos(elapsedTime) * 9);
+
+    uranus.position.z = (Math.sin(elapsedTime) * 10.5);
+    uranus.position.x = (Math.cos(elapsedTime) * 10.5);
+
+    neptune.position.z = (Math.sin(elapsedTime) * 12);
+    neptune.position.x = (Math.cos(elapsedTime) * 12);
 
     // Update controls
     controls.update()
