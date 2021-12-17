@@ -193,11 +193,11 @@ const neptune = new THREE.Mesh(
 
 sun.position.x = 0;
 mercury.position.x = 1.5;
-venus.position.x = 3;
-earth.position.x = 4.5;
-mars.position.x = 6;
-jupiter.position.x = 7.5;
-saturn.position.x = 9;
+venus.position.x = 2.5;
+earth.position.x = 3.8;
+mars.position.x = 5.1;
+jupiter.position.x = 6.8;
+saturn.position.x = 8.8;
 uranus.position.x = 10.5;
 neptune.position.x = 12;
 
@@ -206,7 +206,7 @@ scene.add(sun, mercury, venus, earth, mars, jupiter, saturn, uranus, neptune);
 
 
 // Axes helper
-const axesHelper = new THREE.AxesHelper(5);
+const axesHelper = new THREE.AxesHelper(15);
 scene.add(axesHelper);
 // Lights
 
@@ -273,12 +273,17 @@ renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
  */
 const clock = new THREE.Clock()
 
+const randomOrbitSpeedGenerator = () => {
+    return Math.random() * (0.7, 0.3) + 0.3;
+}
+
 const animationObject = {
     planetRotationSpeed: 4,
-    planetOrbitSpeed: 0.25,
+    planetOrbitSpeed: 0.8,
     resetCamera: () => {
         controls.reset()
-    }
+    },
+    randomPlanetOrbitSpeed: [randomOrbitSpeedGenerator(), randomOrbitSpeedGenerator(), randomOrbitSpeedGenerator(), randomOrbitSpeedGenerator(), randomOrbitSpeedGenerator(), randomOrbitSpeedGenerator(), randomOrbitSpeedGenerator(), randomOrbitSpeedGenerator(),]
 }
 
 gui.add(animationObject, 'planetRotationSpeed').min(0).max(10).step(0.01);
@@ -315,26 +320,27 @@ const tick = () =>
 
     rotationFunction(saturn, [0.04, 0.08], elapsedTime);
 
-    rotationFunction(uranus, [0.05, 0.9], elapsedTime);
+    rotationFunction(uranus, [0.05, 0.09], elapsedTime);
 
     rotationFunction(neptune, [0.1, 0.1], elapsedTime);
 
     // Orbit rotations
-    orbitFunction(mercury, elapsedTime, 1.5);
+    // TODO: Refactor the initial x position values into variables instead
+    orbitFunction(mercury, (elapsedTime * animationObject.randomPlanetOrbitSpeed[0]), -1.5);
 
-    orbitFunction(venus, elapsedTime, 3);
+    orbitFunction(venus, (elapsedTime * animationObject.randomPlanetOrbitSpeed[1]), 2.5);
 
-    orbitFunction(earth, elapsedTime, 4.5);
+    orbitFunction(earth, (elapsedTime * animationObject.randomPlanetOrbitSpeed[2]), -3.8);
 
-    orbitFunction(mars, elapsedTime, 6);
+    orbitFunction(mars, (elapsedTime * animationObject.randomPlanetOrbitSpeed[3]), 5.1);
 
-    orbitFunction(jupiter, elapsedTime, 7.5);
+    orbitFunction(jupiter, (elapsedTime * animationObject.randomPlanetOrbitSpeed[4]), -6.8);
 
-    orbitFunction(saturn, elapsedTime, 9);
+    orbitFunction(saturn, (elapsedTime * animationObject.randomPlanetOrbitSpeed[5]), 8.8);
 
-    orbitFunction(uranus, elapsedTime, 10.5);
+    orbitFunction(uranus, (elapsedTime * animationObject.randomPlanetOrbitSpeed[6]), -10.5);
 
-    orbitFunction(neptune, elapsedTime, 12);
+    orbitFunction(neptune, (elapsedTime * animationObject.randomPlanetOrbitSpeed[7]), 12);
 
     // Update controls
     controls.update()
