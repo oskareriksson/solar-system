@@ -247,9 +247,9 @@ window.addEventListener('resize', () =>
  */
 // Base camera
 const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, 0.1, 100)
-camera.position.x = 1
-camera.position.y = 1
-camera.position.z = 8
+camera.position.x = -7
+camera.position.y = 7
+camera.position.z = 7
 scene.add(camera)
 
 // Taken from example
@@ -275,11 +275,15 @@ const clock = new THREE.Clock()
 
 const animationObject = {
     planetRotationSpeed: 4,
-    planetOrbitSpeed: 0.25
+    planetOrbitSpeed: 0.25,
+    resetCamera: () => {
+        controls.reset()
+    }
 }
 
 gui.add(animationObject, 'planetRotationSpeed').min(0).max(10).step(0.01);
 gui.add(animationObject, 'planetOrbitSpeed').min(0).max(2).step(0.01);
+gui.add(animationObject, 'resetCamera');
 
 const rotationFunction = (planet, axis, elapsedTime) => {
     planet.rotation.y = (axis[0] * elapsedTime) * animationObject.planetRotationSpeed;
