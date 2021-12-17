@@ -274,10 +274,22 @@ renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 const clock = new THREE.Clock()
 
 const animationObject = {
-    planetRotationSpeed: 1,
+    planetRotationSpeed: 4,
+    planetOrbitSpeed: 0.25
 }
 
 gui.add(animationObject, 'planetRotationSpeed').min(0).max(10).step(0.01);
+gui.add(animationObject, 'planetOrbitSpeed').min(0).max(2).step(0.01);
+
+const rotationFunction = (planet, axis, elapsedTime) => {
+    planet.rotation.y = (axis[0] * elapsedTime) * animationObject.planetRotationSpeed;
+    planet.rotation.x = (axis[1] * elapsedTime) * animationObject.planetRotationSpeed;
+}
+
+const orbitFunction = (planet, elapsedTime, initialXOffset) => {
+    planet.position.z = (Math.sin(elapsedTime * animationObject.planetOrbitSpeed) * initialXOffset);
+    planet.position.x = (Math.cos(elapsedTime * animationObject.planetOrbitSpeed) * initialXOffset);
+}
 
 const tick = () =>
 {
@@ -285,57 +297,40 @@ const tick = () =>
 
     // Update objects
     // Planet rotations
-    sun.rotation.y = (0.0 * elapsedTime) * animationObject.planetRotationSpeed;
-    sun.rotation.x = (0.07 * elapsedTime) * animationObject.planetRotationSpeed;
+    rotationFunction(sun, [0.0, 0.07], elapsedTime);
 
-    mercury.rotation.y = (0.05 * elapsedTime) * animationObject.planetRotationSpeed;
-    mercury.rotation.x = (0.1 * elapsedTime) * animationObject.planetRotationSpeed;
+    rotationFunction(mercury, [0.05, 0.1], elapsedTime);
 
-    venus.rotation.y = (0.03 * elapsedTime) * animationObject.planetRotationSpeed;
-    venus.rotation.x = (0.09 * elapsedTime) * animationObject.planetRotationSpeed;
+    rotationFunction(venus, [0.03, 0.09], elapsedTime);
 
-    earth.rotation.y = (0.1 * elapsedTime) * animationObject.planetRotationSpeed;
-    earth.rotation.x = (0.15 * elapsedTime) * animationObject.planetRotationSpeed;
+    rotationFunction(earth, [0.1, 0.15], elapsedTime);
 
-    mars.rotation.y = (0.04 * elapsedTime) * animationObject.planetRotationSpeed;
-    mars.rotation.x = (0.08 * elapsedTime) * animationObject.planetRotationSpeed;
+    rotationFunction(mars, [0.04, 0.08], elapsedTime);
 
-    jupiter.rotation.y = (0.03 * elapsedTime) * animationObject.planetRotationSpeed;
-    jupiter.rotation.x = (0.07 * elapsedTime) * animationObject.planetRotationSpeed;
+    rotationFunction(jupiter, [0.03, 0.07], elapsedTime);
 
-    saturn.rotation.y = (0.04 * elapsedTime) * animationObject.planetRotationSpeed;
-    saturn.rotation.x = (0.08 * elapsedTime) * animationObject.planetRotationSpeed;
+    rotationFunction(saturn, [0.04, 0.08], elapsedTime);
 
-    uranus.rotation.y = (0.05 * elapsedTime) * animationObject.planetRotationSpeed;
-    uranus.rotation.x = (0.09 * elapsedTime) * animationObject.planetRotationSpeed;
+    rotationFunction(uranus, [0.05, 0.9], elapsedTime);
 
-    neptune.rotation.y = (0.1 * elapsedTime) * animationObject.planetRotationSpeed;
-    neptune.rotation.x = (0.1 * elapsedTime) * animationObject.planetRotationSpeed;
+    rotationFunction(neptune, [0.1, 0.1], elapsedTime);
 
     // Orbit rotations
-    mercury.position.z = (Math.sin(elapsedTime) * 1.5);
-    mercury.position.x = (Math.cos(elapsedTime) * 1.5);
+    orbitFunction(mercury, elapsedTime, 1.5);
 
-    venus.position.z = (Math.sin(elapsedTime) * 3);
-    venus.position.x = (Math.cos(elapsedTime) * 3);
+    orbitFunction(venus, elapsedTime, 3);
 
-    earth.position.z = (Math.sin(elapsedTime) * 4.5);
-    earth.position.x = (Math.cos(elapsedTime) * 4.5);
+    orbitFunction(earth, elapsedTime, 4.5);
 
-    mars.position.z = (Math.sin(elapsedTime) * 6);
-    mars.position.x = (Math.cos(elapsedTime) * 6);
+    orbitFunction(mars, elapsedTime, 6);
 
-    jupiter.position.z = (Math.sin(elapsedTime) * 7.5);
-    jupiter.position.x = (Math.cos(elapsedTime) * 7.5);
+    orbitFunction(jupiter, elapsedTime, 7.5);
 
-    saturn.position.z = (Math.sin(elapsedTime) * 9);
-    saturn.position.x = (Math.cos(elapsedTime) * 9);
+    orbitFunction(saturn, elapsedTime, 9);
 
-    uranus.position.z = (Math.sin(elapsedTime) * 10.5);
-    uranus.position.x = (Math.cos(elapsedTime) * 10.5);
+    orbitFunction(uranus, elapsedTime, 10.5);
 
-    neptune.position.z = (Math.sin(elapsedTime) * 12);
-    neptune.position.x = (Math.cos(elapsedTime) * 12);
+    orbitFunction(neptune, elapsedTime, 12);
 
     // Update controls
     controls.update()
