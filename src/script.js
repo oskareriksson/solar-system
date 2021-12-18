@@ -14,6 +14,7 @@ document.body.appendChild(stats.dom);
 /**
  * Base
  */
+
 // Canvas
 const canvas = document.querySelector("canvas.webgl");
 
@@ -146,7 +147,6 @@ window.addEventListener("resize", () => {
 /**
  * Camera
  */
-// Base camera
 const camera = new THREE.PerspectiveCamera(
     75,
     sizes.width / sizes.height,
@@ -197,7 +197,7 @@ const randomPlanetOrbitSpeeds = [
     randomOrbitSpeedGenerator(),
 ];
 
-// All the properties that will be controllable in the debug UI is added here
+// All the properties that will be controllable in the debug UI are added here
 const animationObject = {
     planetRotationSpeed: 4,
     planetOrbitSpeed: 0.8,
