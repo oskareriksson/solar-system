@@ -119,8 +119,7 @@ const initialXPositions = {
 };
 
 // Axes helper
-// const axesHelper = new THREE.AxesHelper(15);
-// scene.add(axesHelper);
+const axesHelper = new THREE.AxesHelper(15);
 
 /**
  * Sizes
@@ -165,6 +164,8 @@ scene.background = environmentMapTexture;
 // Controls
 const controls = new OrbitControls(camera, canvas);
 controls.enableDamping = true;
+controls.minDistance = 1;
+controls.maxDistance = 50;
 
 /**
  * Renderer
@@ -185,28 +186,28 @@ const randomOrbitSpeedGenerator = () => {
     return Math.random() * (0.7, 0.3) + 0.3;
 };
 
+const randomPlanetOrbitSpeeds = [
+    randomOrbitSpeedGenerator(),
+    randomOrbitSpeedGenerator(),
+    randomOrbitSpeedGenerator(),
+    randomOrbitSpeedGenerator(),
+    randomOrbitSpeedGenerator(),
+    randomOrbitSpeedGenerator(),
+    randomOrbitSpeedGenerator(),
+    randomOrbitSpeedGenerator(),
+];
+
+// All the properties that will be controllable in the debug UI is added here
 const animationObject = {
     planetRotationSpeed: 4,
     planetOrbitSpeed: 0.8,
     resetCamera: () => {
         controls.reset();
     },
-    randomPlanetOrbitSpeed: [
-        randomOrbitSpeedGenerator(),
-        randomOrbitSpeedGenerator(),
-        randomOrbitSpeedGenerator(),
-        randomOrbitSpeedGenerator(),
-        randomOrbitSpeedGenerator(),
-        randomOrbitSpeedGenerator(),
-        randomOrbitSpeedGenerator(),
-        randomOrbitSpeedGenerator(),
-    ],
+    toggleAxesHelper: false,
 };
 
-gui.add(animationObject, "planetRotationSpeed").min(0).max(10).step(0.01);
-gui.add(animationObject, "planetOrbitSpeed").min(0).max(2).step(0.01);
-gui.add(animationObject, "resetCamera");
-
+// Axis is an array of predetermined rotation speeds on the y and x axis
 const rotationFunction = (planet, axis, elapsedTime) => {
     planet.rotation.y =
         axis[0] * elapsedTime * animationObject.planetRotationSpeed;
@@ -222,6 +223,18 @@ const orbitFunction = (planet, elapsedTime, initialXOffset) => {
         Math.cos(elapsedTime * animationObject.planetOrbitSpeed) *
         initialXOffset;
 };
+
+// Debug controls
+gui.add(animationObject, "planetRotationSpeed").min(0).max(10).step(0.01);
+gui.add(animationObject, "planetOrbitSpeed").min(0).max(2).step(0.01);
+gui.add(animationObject, "toggleAxesHelper").onChange((value) => {
+    if (value) {
+        scene.add(axesHelper);
+    } else {
+        scene.remove(axesHelper);
+    }
+});
+gui.add(animationObject, "resetCamera");
 
 const tick = () => {
     stats.begin();
@@ -249,52 +262,51 @@ const tick = () => {
     rotationFunction(neptune, [0.1, 0.1], elapsedTime);
 
     // Orbit rotations
-    // TODO: Refactor the initial x position values into variables instead
     orbitFunction(
         mercury,
-        elapsedTime * animationObject.randomPlanetOrbitSpeed[0],
+        elapsedTime * randomPlanetOrbitSpeeds[0],
         initialXPositions.mercury
     );
 
     orbitFunction(
         venus,
-        elapsedTime * animationObject.randomPlanetOrbitSpeed[1],
+        elapsedTime * randomPlanetOrbitSpeeds[1],
         initialXPositions.venus
     );
 
     orbitFunction(
         earth,
-        elapsedTime * animationObject.randomPlanetOrbitSpeed[2],
+        elapsedTime * randomPlanetOrbitSpeeds[2],
         initialXPositions.earth
     );
 
     orbitFunction(
         mars,
-        elapsedTime * animationObject.randomPlanetOrbitSpeed[3],
+        elapsedTime * randomPlanetOrbitSpeeds[3],
         initialXPositions.mars
     );
 
     orbitFunction(
         jupiter,
-        elapsedTime * animationObject.randomPlanetOrbitSpeed[4],
+        elapsedTime * randomPlanetOrbitSpeeds[4],
         initialXPositions.jupiter
     );
 
     orbitFunction(
         saturn,
-        elapsedTime * animationObject.randomPlanetOrbitSpeed[5],
+        elapsedTime * randomPlanetOrbitSpeeds[5],
         initialXPositions.saturn
     );
 
     orbitFunction(
         uranus,
-        elapsedTime * animationObject.randomPlanetOrbitSpeed[6],
+        elapsedTime * randomPlanetOrbitSpeeds[6],
         initialXPositions.uranus
     );
 
     orbitFunction(
         neptune,
-        elapsedTime * animationObject.randomPlanetOrbitSpeed[7],
+        elapsedTime * randomPlanetOrbitSpeeds[7],
         initialXPositions.neptune
     );
 
