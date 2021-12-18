@@ -48,12 +48,12 @@ const neptuneTexture = textureLoader.load("/textures/planets/neptune.jpg");
 
 // The order of CubeTextures are important. Look at the docs
 const environmentMapTexture = cubeTextureLoader.load([
-    "/textures/environmentMaps/space/px.png",
-    "/textures/environmentMaps/space/nx.png",
-    "/textures/environmentMaps/space/py.png",
-    "/textures/environmentMaps/space/ny.png",
-    "/textures/environmentMaps/space/pz.png",
-    "/textures/environmentMaps/space/nz.png",
+    "/textures/environmentMaps/space/px.jpg",
+    "/textures/environmentMaps/space/nx.jpg",
+    "/textures/environmentMaps/space/py.jpg",
+    "/textures/environmentMaps/space/ny.jpg",
+    "/textures/environmentMaps/space/pz.jpg",
+    "/textures/environmentMaps/space/nz.jpg",
 ]);
 
 // Scene
